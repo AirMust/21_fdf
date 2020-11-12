@@ -6,7 +6,7 @@
 #    By: air_must <air_must@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/25 14:04:51 by slynell           #+#    #+#              #
-#    Updated: 2020/11/12 16:53:08 by air_must         ###   ########.fr        #
+#    Updated: 2020/11/12 17:02:29 by air_must         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,6 +68,7 @@ $(NAME) : $(LIBFT) $(MLX)  $(OBJECTS)  $(INCLUDES)
 $(LIBFT) : Makefile
 	@make -C $(LDIR) 2> tmp.log
 
+
 # /*
 # ** ====================== MAKE MLX =============================
 # */
@@ -94,6 +95,7 @@ clean:
 
 fclean: clean
 	@make fclean -C $(LDIR) 2> tmp.log
+	@make fclean -C $(MLX_DIR) 2> tmp.log
 	@rm -rf $(NAME) 2> tmp.log
 	@echo "\033[31m> Clear $(NAME)\033[0m"
 

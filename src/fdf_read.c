@@ -6,7 +6,7 @@
 /*   By: air_must <air_must@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 16:40:03 by vcaterpi          #+#    #+#             */
-/*   Updated: 2020/11/13 01:16:08 by air_must         ###   ########.fr       */
+/*   Updated: 2020/11/13 02:23:08 by air_must         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_map	*fdf_create_map(int height, int width)
 		fdf_error("Error: not memory map\n");
 	map->height = height;
 	map->width = width;
-	map->depth_max = INT16_MIN;
+	map->depth_max = INT32_MIN;
 	map->depth_min = INT32_MAX;
 	if ((map->points = (t_point **)ft_memalloc(sizeof(t_point *) * (height))) == NULL)
 		fdf_error("Error: not memory points\n");

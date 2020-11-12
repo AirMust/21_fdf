@@ -6,7 +6,7 @@
 /*   By: air_must <air_must@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 16:40:03 by vcaterpi          #+#    #+#             */
-/*   Updated: 2020/11/12 15:19:45 by air_must         ###   ########.fr       */
+/*   Updated: 2020/11/13 00:15:21 by air_must         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int ft_lerpi(int first, int second, double p)
 	return ((int)((double)first + (second - first) * p));
 }
 
-t_point rotate(t_point p, t_cam *r)
+t_point iso(t_point p, t_cam *r)
 {
 	t_point v;
 	double x;
@@ -38,18 +38,32 @@ t_point rotate(t_point p, t_cam *r)
 	return (v);
 }
 
+// Проекция Косоугольная
+t_point koso(t_point p, t_cam *r)
+{
+	t_point v;
+	int f;
+
+	f = 1;
+	v.x = (-1) * f * cos(r->x) * p.z + p.x;
+	v.y = (-1) * f * sin(r->y) * p.z + p.y;
+	v.z = p.z;
+	v.color = p.color;
+	return (v);
+}
+
 t_point project_vector(t_point v, t_mlx *mlx)
 {
-	ft_printf("%lf, %lf, %lf - ", v.y, v.x, v.z);
+	// ft_printf("%lf, %lf, %lf - ", v.y, v.x, v.z);
 	v.x -= (double)(mlx->map->width - 1) / 2.0f;
 	v.y -= (double)(mlx->map->height - 1) / 2.0f;
 	v.z -= (double)(mlx->map->depth_min + mlx->map->depth_max) / 2.0f;
-	v = rotate(v, mlx->cam);
+	v = mlx->cam->f < 0 ? iso(v, mlx->cam) : koso(v, mlx->cam);
 	v.x *= mlx->cam->scale;
 	v.y *= mlx->cam->scale;
 	v.x += mlx->cam->offsetx;
 	v.y += mlx->cam->offsety;
-	ft_printf("%lf, %lf, %lf\n", v.y, v.x, v.z);
+	// ft_printf("%lf, %lf, %lf\n", v.y, v.x, v.z);
 
 	return (v);
 }
@@ -80,13 +94,13 @@ double ft_ilerp(double val, double first, double second)
 int line_process_point(t_mlx *mlx, t_line *l, t_point *p1,
 					   t_point *p2)
 {
-	double percent;
-
+	// double percent;
+	(void)l;
 	if (p1->x < 0 || p1->x >= WIN_WIDTH || p1->y < 0 || p1->y >= WIN_HEIGHT || p2->x < 0 || p2->x >= WIN_WIDTH || p2->y < 0 || p2->y >= WIN_HEIGHT)
 		return (1);
-	percent = (l->dx > l->dy ? ft_ilerp((int)p1->x, (int)l->start.x, (int)l->stop.x)
-							 : ft_ilerp((int)p1->y, (int)l->start.y, (int)l->stop.y));
-	image_set_pixel(mlx->image, (int)p1->x, (int)p1->y, clerp(p1->color, p2->color, percent));
+	// percent = (l->dx > l->dy ? ft_ilerp((int)p1->x, (int)l->start.x, (int)l->stop.x)
+	// 						 : ft_ilerp((int)p1->y, (int)l->start.y, (int)l->stop.y));
+	image_set_pixel(mlx->image, (int)p1->x, (int)p1->y, p1->color);
 	l->err2 = l->err;
 	if (l->err2 > -l->dx)
 	{
@@ -133,9 +147,11 @@ void render(t_mlx *mlx)
 	map = mlx->map;
 	clear_image(mlx->image);
 	i = -1;
-	while(++i < map->height){
+	while (++i < map->height)
+	{
 		j = -1;
-		while(++j < map->width){
+		while (++j < map->width)
+		{
 			v = project_vector(map->points[i][j], mlx);
 			if (i + 1 < map->height)
 				line(mlx, v, project_vector(map->points[i + 1][j], mlx));
@@ -169,7 +185,7 @@ void fdf_print_map(t_map *map)
 t_map *fdf_read_map(char *name_map)
 {
 	// t_list	*lst;
-	char *temp_line;	   // Ну тут понятно
+	// char *temp_line;	   // Ну тут понятно
 	char *line;			   // Строка после удаления пробельных символов
 	char *result_line;	   // Склейка всех строк через \n
 	char **lines;		   // Массив строк после сплита result_line
@@ -186,29 +202,10 @@ t_map *fdf_read_map(char *name_map)
 	fd = open(name_map, O_RDONLY);
 	if (fd < 0)
 		fdf_error("Error: can't open file\n");
-	while (get_next_line(fd, &temp_line) > 0)
+	while (get_next_line(fd, &line) > 0)
 	{
 		i = 0;
-		// Так этими двумя строками мы удаляем пробельные символы вначалеи в конце, на всякий случай
-		line = ft_strtrim(temp_line);
-		ft_strdel(&temp_line);
-		// Этим циклом мы пробегаем по строке и удаляем парные пробельные символы, то есть в карте
-		// у нас может быть хоший случай типо 1_23_43, где _ - это пробел, то есть высоты карты идут
-		// через один пробел, а может быть и такой случай 0__43__43 => 0_43_43 - результат работы
 
-		while (i < (int)ft_strlen(line))
-		{
-			if (line[i] == ' ' && line[i + 1] == ' ')
-			{
-				temp_line = line;
-				line = ft_strmerge(ft_strsub(line, 0, i), ft_strsub(line, i + 1, ft_strlen(line)));
-				ft_strdel(&temp_line);
-			}
-			i++;
-		}
-		// Тут мы все склеиваем через \n чтоб потом раскидать по массивы, далее мы считываем "ширину" - карты
-		// очевидно что для каждой строки должна быть одинаковая ширина, это мы и проверяем, если хоть в какой-то
-		// строке не так, то все плохо, далее мы подсчитываем "высоту" карты ну и создаем массив двумерный
 		result_line = ft_strmerge(result_line, ft_strjoin("\n", line));
 		if (height == 0)
 			width = ft_countwords(line, ' ');
@@ -217,18 +214,20 @@ t_map *fdf_read_map(char *name_map)
 		ft_strdel(&line);
 		height += 1;
 	}
+	ft_strdel(&line);
 	i = -1;
-	map = ft_memalloc(sizeof(t_map *));
+	if ((map = (t_map *)ft_memalloc(sizeof(t_map))) == NULL)
+		fdf_error("Error: not memory map\n");
 	map->height = height;
 	map->width = width;
 	map->depth_max = INT16_MIN;
 	map->depth_min = INT32_MAX;
-	if ((map->points = (t_point **)ft_memalloc(sizeof(t_point *) * (height + 1))) == NULL)
+	if ((map->points = (t_point **)ft_memalloc(sizeof(t_point *) * (height))) == NULL)
 		fdf_error("Error: not memory points\n");
 	lines = ft_strsplit(result_line, '\n');
 	while (++i < height)
 	{
-		if ((map->points[i] = (t_point *)ft_memalloc(sizeof(t_point) * (width + 1))) == NULL)
+		if ((map->points[i] = (t_point *)ft_memalloc(sizeof(t_point) * (width))) == NULL)
 			fdf_error("Error: not memory points\n");
 		values_in_line = ft_strsplit(lines[i], ' ');
 		j = -1;
@@ -237,8 +236,7 @@ t_map *fdf_read_map(char *name_map)
 			map->points[i][j].x = j;
 			map->points[i][j].y = i;
 			map->points[i][j].z = ft_atoi(values_in_line[j]);
-			map->points[i][j].color = clerp(0xFF0000, 0xFFFFFF, ft_ilerp(map->points[i][j].z,
-				0, 10));
+			map->points[i][j].color = clerp(0xFF0000, 0xFFFFFF, ft_ilerp(map->points[i][j].z, 0, 10));
 			if (map->points[i][j].z > map->depth_max)
 				map->depth_max = map->points[i][j].z;
 			if (map->points[i][j].z < map->depth_min)
@@ -247,7 +245,6 @@ t_map *fdf_read_map(char *name_map)
 		ft_strsplitfree(&values_in_line);
 	}
 	ft_strsplitfree(&lines);
-	// fdf_print_map(map);
 	ft_strdel(&result_line);
 	return (map);
 }
@@ -264,9 +261,10 @@ t_mlx *fdf_create(char *name_map)
 	mlx->cam = ft_memalloc(sizeof(t_cam));
 	mlx->mouse = ft_memalloc(sizeof(t_mouse));
 	mlx->image = new_image(mlx);
-	mlx->cam->x = 0.5;
-	mlx->cam->y = 0.5;
-	mlx->cam->scale = 10;
+	mlx->cam->x = 1.0;
+	mlx->cam->y = 1.0;
+	mlx->cam->f = -1;
+	mlx->cam->scale = 50;
 	mlx->cam->offsetx = WIN_WIDTH / 2;
 	mlx->cam->offsety = WIN_HEIGHT / 2;
 	mlx->map = fdf_read_map(name_map);
@@ -284,10 +282,10 @@ int main(int argc, char **argv)
 		fdf_error("Error: not enough arguments");
 	mlx = fdf_create(argv[1]);
 	render(mlx);
-	// mlx_key_hook(mlx->window, hook_keydown, mlx);
-	// mlx_hook(mlx->window, 4, 0, hook_mousedown, mlx);
-	// mlx_hook(mlx->window, 5, 0, hook_mouseup, mlx);
-	// mlx_hook(mlx->window, 6, 0, hook_mousemove, mlx);
+	mlx_key_hook(mlx->window, hook_keydown, mlx);
+	mlx_hook(mlx->window, 4, 0, hook_mousedown, mlx);
+	mlx_hook(mlx->window, 5, 0, hook_mouseup, mlx);
+	mlx_hook(mlx->window, 6, 0, hook_mousemove, mlx);
 	mlx_loop(mlx->mlx);
 	return (0);
 }

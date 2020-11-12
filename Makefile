@@ -6,7 +6,7 @@
 #    By: air_must <air_must@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/25 14:04:51 by slynell           #+#    #+#              #
-#    Updated: 2020/11/12 17:02:29 by air_must         ###   ########.fr        #
+#    Updated: 2020/11/12 23:17:13 by air_must         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ SRCS = main.c
 SRCS += fdf_error.c
 SRCS += fdf_img_utils.c
 SRCS += fdf_line_utils.c
-
+SRCS += mouse.c
 
 SOURCES = $(addprefix $(SDIR)/,$(SRCS))
 OBJECTS = $(addprefix $(ODIR)/,$(SRCS:.c=.o))

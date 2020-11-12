@@ -6,7 +6,7 @@
 /*   By: air_must <air_must@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 22:39:22 by pbondoer          #+#    #+#             */
-/*   Updated: 2020/11/13 00:31:40 by air_must         ###   ########.fr       */
+/*   Updated: 2020/11/13 01:57:05 by air_must         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		hook_keydown(int key, t_mlx *mlx)
 		exit(EXIT_SUCCESS);
 	if (key == 48){
 		mlx->cam->f *= -1;
-		render(mlx);
+		fdf_render(mlx);
 	}
 	return (0);
 }
@@ -60,6 +60,6 @@ int		hook_mousemove(int x, int y, t_mlx *mlx)
 			mlx->cam->scale = 1;
 	}
 	if (mlx->mouse->isdown)
-		render(mlx);
+		fdf_render(mlx);
 	return (0);
 }

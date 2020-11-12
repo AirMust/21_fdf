@@ -6,7 +6,7 @@
 /*   By: air_must <air_must@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 05:17:48 by hbhuiyan          #+#    #+#             */
-/*   Updated: 2020/11/13 01:00:59 by air_must         ###   ########.fr       */
+/*   Updated: 2020/11/13 02:08:26 by air_must         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,14 @@ typedef struct		s_line
 */
 
 void				fdf_error(char *error);
+t_mlx				*fdf_create(char *name_map);
 t_map				*fdf_read_map(char *name_map);
+void				fdf_render(t_mlx *mlx);
+t_point				fdf_project(t_point point, t_mlx *mlx);
+
 void				image_set_pixel(t_image *image, int x, int y, int color);
 void				clear_image(t_image *image);
-int					lineclip(t_point *p1, t_point *p2);
 t_image				*new_image(t_mlx *mlx);
-void 				render(t_mlx *mlx);
 int					hook_mousemove(int x, int y, t_mlx *mlx);
 int					hook_mousedown(int button, int x, int y, t_mlx *mlx);
 int					hook_mouseup(int button, int x, int y, t_mlx *mlx);

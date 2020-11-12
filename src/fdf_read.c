@@ -6,7 +6,7 @@
 /*   By: air_must <air_must@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 16:40:03 by vcaterpi          #+#    #+#             */
-/*   Updated: 2020/11/13 01:12:49 by air_must         ###   ########.fr       */
+/*   Updated: 2020/11/13 01:16:08 by air_must         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_map *fdf_read_map(char *name_map)
 		if (height == 0)
 			width = ft_countwords(line, ' ');
 		if (width != ft_countwords(line, ' '))
-			fdf_error("Erorr: width\n");
+			fdf_error("Error: width\n");
 		ft_strdel(&line);
 		height += 1;
 	}

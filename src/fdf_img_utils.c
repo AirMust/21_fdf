@@ -6,7 +6,7 @@
 /*   By: air_must <air_must@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/19 04:21:40 by pbondoer          #+#    #+#             */
-/*   Updated: 2020/11/12 04:02:47 by air_must         ###   ########.fr       */
+/*   Updated: 2020/11/13 02:11:11 by air_must         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_image *new_image(t_mlx *mlx)
 	t_image *img;
 
 	if ((img = ft_memalloc(sizeof(t_image))) == NULL)
-		fdf_error("Error: can't init image\n");
+		fdf_error("Error: not memory image\n");
 	img->image = mlx_new_image(mlx->mlx, WIN_WIDTH, WIN_HEIGHT);
 	img->ptr = mlx_get_data_addr(img->image, &img->bpp, &img->stride,
 								 &img->endian);

@@ -6,7 +6,7 @@
 /*   By: air_must <air_must@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 05:17:48 by hbhuiyan          #+#    #+#             */
-/*   Updated: 2020/11/13 02:08:26 by air_must         ###   ########.fr       */
+/*   Updated: 2020/11/13 02:10:42 by air_must         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <fcntl.h>
 # include "../libft/header/libft.h"
 # include "../minilibx_macos/mlx.h"
-// # include "ft_x11.h"
+
 # define WIN_WIDTH			1280
 # define WIN_HEIGHT			720
 

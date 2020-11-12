@@ -6,17 +6,23 @@
 /*   By: air_must <air_must@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 16:40:03 by vcaterpi          #+#    #+#             */
-/*   Updated: 2020/11/13 02:08:12 by air_must         ###   ########.fr       */
+/*   Updated: 2020/11/13 02:19:01 by air_must         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/fdf.h"
 
+int fdf_check_point(t_point *point)
+{
+	if (point->x < 0 || point->x >= WIN_WIDTH || point->y < 0 || point->y >= WIN_HEIGHT)
+		return (1);
+	return (0);
+}
 
 int fdf_draw_point(t_mlx *mlx, t_line *l, t_point *p1,
 					   t_point *p2)
 {
-	if (p1->x < 0 || p1->x >= WIN_WIDTH || p1->y < 0 || p1->y >= WIN_HEIGHT || p2->x < 0 || p2->x >= WIN_WIDTH || p2->y < 0 || p2->y >= WIN_HEIGHT)
+	if (fdf_check_point(p1) || fdf_check_point(p2))
 		return (1);
 	image_set_pixel(mlx->image, (int)p1->x, (int)p1->y, p1->color);
 	l->err2 = l->err;

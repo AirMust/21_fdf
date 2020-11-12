@@ -6,7 +6,7 @@
 /*   By: air_must <air_must@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 16:40:03 by vcaterpi          #+#    #+#             */
-/*   Updated: 2020/11/13 01:54:46 by air_must         ###   ########.fr       */
+/*   Updated: 2020/11/13 02:12:46 by air_must         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ t_point		fdf_projection_isometric(t_point point, t_cam *r)
 // Проекция Косоугольная
 t_point		fdf_projection_oblique(t_point point, t_cam *r)
 {
-	t_point temp_point;
-	int f;
+	t_point	temp_point;
+	int		f;
 
 	f = 1;
 	temp_point.x = (-1) * f * cos(r->y) * point.z + point.x;
@@ -56,6 +56,5 @@ t_point		fdf_project(t_point point, t_mlx *mlx)
 	point.y *= mlx->cam->scale;
 	point.x += mlx->cam->offsetx;
 	point.y += mlx->cam->offsety;
-
 	return (point);
 }

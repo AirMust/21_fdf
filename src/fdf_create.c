@@ -6,7 +6,7 @@
 /*   By: air_must <air_must@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 16:40:03 by vcaterpi          #+#    #+#             */
-/*   Updated: 2020/11/13 01:44:07 by air_must         ###   ########.fr       */
+/*   Updated: 2020/11/13 02:10:35 by air_must         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_mlx	*fdf_create(char *name_map)
 		fdf_error("Error: can't init mlx\n");
 	mlx->mlx = mlx_init();
 	mlx->window = mlx_new_window(mlx->mlx, WIN_WIDTH,
-								 WIN_HEIGHT, name_map);
+								WIN_HEIGHT, name_map);
 	mlx->cam = ft_memalloc(sizeof(t_cam));
 	mlx->mouse = ft_memalloc(sizeof(t_mouse));
 	mlx->image = new_image(mlx);

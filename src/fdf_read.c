@@ -6,7 +6,7 @@
 /*   By: air_must <air_must@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 16:40:03 by vcaterpi          #+#    #+#             */
-/*   Updated: 2020/11/13 02:23:08 by air_must         ###   ########.fr       */
+/*   Updated: 2020/11/13 03:34:03 by air_must         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,36 @@ t_map	*fdf_create_map(int height, int width)
 		if ((map->points[i] = (t_point *)ft_memalloc(sizeof(t_point) * (width))) == NULL)
 			fdf_error("Error: not memory points\n");
 	return (map);
+}
+
+int		fdf_get_color(int value, int max, int min)
+{
+	int	c1;
+	int	c2;
+	double	del;
+	(void)value;
+	c1 = 0xFF0000;
+	c2 = 0x0000FF;
+	del = (c1 - c2) / (max - min) * 1.0f;
+	return (del * (value - min) + c2);
+}
+
+void	fdf_set_color(t_map *map)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+
+	while (++i < map->height)
+	{
+		j = -1;
+		while (++j < map->width)
+		{
+			map->points[i][j].color = fdf_get_color(map->points[i][j].z, map->depth_max, map->depth_min);
+			// (map->points[i][j].z > map->depth_min ? 0xFF0000 : 0x0000FF);
+		}
+	}
 }
 
 t_map	*fdf_parse_map(char *line, int height, int width)
@@ -61,6 +91,7 @@ t_map	*fdf_parse_map(char *line, int height, int width)
 		ft_strsplitfree(&values_in_line);
 	}
 	ft_strsplitfree(&lines);
+	fdf_set_color(map);
 	return (map);
 }
 

@@ -6,7 +6,7 @@
 /*   By: air_must <air_must@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 16:40:03 by vcaterpi          #+#    #+#             */
-/*   Updated: 2020/11/13 03:19:33 by air_must         ###   ########.fr       */
+/*   Updated: 2020/11/13 14:45:09 by air_must         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	fdf_render(t_mlx *mlx)
 		while (++j < map->width)
 		{
 			v = fdf_project(map->points[i][j], mlx);
+			fdf_draw_line(mlx, v, v);
 			if (i + 1 < map->height)
 				fdf_draw_line(mlx, v, fdf_project(map->points[i + 1][j], mlx));
 			if (j + 1 < map->width)

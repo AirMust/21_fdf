@@ -6,7 +6,7 @@
 /*   By: air_must <air_must@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 16:40:03 by vcaterpi          #+#    #+#             */
-/*   Updated: 2020/11/13 03:45:31 by air_must         ###   ########.fr       */
+/*   Updated: 2020/11/13 14:43:19 by air_must         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		fdf_get_color(int value, int max, int min)
 	(void)value;
 	c1 = 0xFF0000;
 	c2 = 0x0000FF;
-	del = (c1 - c2) / (max - min) * 1.0f;
+	del = (c1 - c2) / ((max - min) == 0 ? 1 : max - min) * 1.0f;
 	return (del * (value - min) + c2);
 }
 

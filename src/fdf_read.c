@@ -6,7 +6,7 @@
 /*   By: air_must <air_must@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 16:40:03 by vcaterpi          #+#    #+#             */
-/*   Updated: 2020/11/13 03:34:03 by air_must         ###   ########.fr       */
+/*   Updated: 2020/11/13 03:45:31 by air_must         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,7 @@ void	fdf_set_color(t_map *map)
 	{
 		j = -1;
 		while (++j < map->width)
-		{
 			map->points[i][j].color = fdf_get_color(map->points[i][j].z, map->depth_max, map->depth_min);
-			// (map->points[i][j].z > map->depth_min ? 0xFF0000 : 0x0000FF);
-		}
 	}
 }
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: air_must <air_must@student.42.fr>          +#+  +:+       +#+         #
+#    By: vcaterpi <vcaterpi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/25 14:04:51 by slynell           #+#    #+#              #
-#    Updated: 2020/11/13 02:08:18 by air_must         ###   ########.fr        #
+#    Updated: 2020/11/13 16:32:26 by vcaterpi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ ODIR = obj
 SRCS = main.c
 SRCS += fdf_error.c
 SRCS += fdf_read.c
+SRCS += fdf_read_help.c
 SRCS += fdf_create.c
 SRCS += fdf_render.c
 SRCS += fdf_project.c

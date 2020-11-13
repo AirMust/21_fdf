@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: air_must <air_must@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vcaterpi <vcaterpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 05:17:48 by hbhuiyan          #+#    #+#             */
-/*   Updated: 2020/11/13 02:10:42 by air_must         ###   ########.fr       */
+/*   Updated: 2020/11/13 16:34:53 by vcaterpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FDF_H
 
 # include <math.h>
-#include <fcntl.h>
+# include <fcntl.h>
 # include "../libft/header/libft.h"
 # include "../minilibx_macos/mlx.h"
 
@@ -90,6 +90,12 @@ typedef struct		s_line
 	int			err2;
 }					t_line;
 
+typedef struct		s_dims
+{
+	int			height;
+	int			width;
+}					t_dims;
+
 /*
 ** ========================== FUNCTION MAIN ==============================
 */
@@ -99,6 +105,7 @@ t_mlx				*fdf_create(char *name_map);
 t_map				*fdf_read_map(char *name_map);
 void				fdf_render(t_mlx *mlx);
 t_point				fdf_project(t_point point, t_mlx *mlx);
+t_map				*fill_point(t_map *map, int x, int y, int z);
 
 void				image_set_pixel(t_image *image, int x, int y, int color);
 void				clear_image(t_image *image);

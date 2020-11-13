@@ -3,40 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_read.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: air_must <air_must@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vcaterpi <vcaterpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/09 16:40:03 by vcaterpi          #+#    #+#             */
-/*   Updated: 2020/11/13 14:43:19 by air_must         ###   ########.fr       */
+/*   Created: 2020/11/13 15:32:51 by vcaterpi          #+#    #+#             */
+/*   Updated: 2020/11/13 16:31:30 by vcaterpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/fdf.h"
 
-t_map	*fdf_create_map(int height, int width)
+t_map	*fdf_create_map(t_dims dims)
 {
 	t_map	*map;
 	int		i;
 
 	if ((map = (t_map *)ft_memalloc(sizeof(t_map))) == NULL)
 		fdf_error("Error: not memory map\n");
-	map->height = height;
-	map->width = width;
+	map->height = dims.height;
+	map->width = dims.width;
 	map->depth_max = INT32_MIN;
 	map->depth_min = INT32_MAX;
-	if ((map->points = (t_point **)ft_memalloc(sizeof(t_point *) * (height))) == NULL)
+	if ((map->points = (t_point **)ft_memalloc(sizeof(t_point *) *
+			(dims.height))) == NULL)
 		fdf_error("Error: not memory points\n");
 	i = -1;
-	while (++i < height)
-		if ((map->points[i] = (t_point *)ft_memalloc(sizeof(t_point) * (width))) == NULL)
+	while (++i < dims.height)
+		if ((map->points[i] = (t_point *)ft_memalloc(sizeof(t_point) *
+				(dims.width))) == NULL)
 			fdf_error("Error: not memory points\n");
 	return (map);
 }
 
 int		fdf_get_color(int value, int max, int min)
 {
-	int	c1;
-	int	c2;
+	int		c1;
+	int		c2;
 	double	del;
+
 	(void)value;
 	c1 = 0xFF0000;
 	c2 = 0x0000FF;
@@ -50,16 +53,16 @@ void	fdf_set_color(t_map *map)
 	int	j;
 
 	i = -1;
-
 	while (++i < map->height)
 	{
 		j = -1;
 		while (++j < map->width)
-			map->points[i][j].color = fdf_get_color(map->points[i][j].z, map->depth_max, map->depth_min);
+			map->points[i][j].color = fdf_get_color(map->points[i][j].z,
+				map->depth_max, map->depth_min);
 	}
 }
 
-t_map	*fdf_parse_map(char *line, int height, int width)
+t_map	*fdf_parse_map(char *line, t_dims dims)
 {
 	t_map	*map;
 	char	**lines;
@@ -67,24 +70,15 @@ t_map	*fdf_parse_map(char *line, int height, int width)
 	int		i;
 	int		j;
 
-	map = fdf_create_map(height, width);
+	map = fdf_create_map(dims);
 	lines = ft_strsplit(line, '\n');
 	i = -1;
-	while (++i < height)
+	while (++i < dims.height)
 	{
 		j = -1;
 		values_in_line = ft_strsplit(lines[i], ' ');
-		while (++j < width)
-		{
-			map->points[i][j].x = j;
-			map->points[i][j].y = i;
-			map->points[i][j].z = ft_atoi(values_in_line[j]);
-			map->points[i][j].color = 0xFF0000;
-			if (map->points[i][j].z > map->depth_max)
-				map->depth_max = map->points[i][j].z;
-			if (map->points[i][j].z < map->depth_min)
-				map->depth_min = map->points[i][j].z;
-		}
+		while (++j < dims.width)
+			fill_point(map, j, i, ft_atoi(values_in_line[j]));
 		ft_strsplitfree(&values_in_line);
 	}
 	ft_strsplitfree(&lines);
@@ -92,33 +86,30 @@ t_map	*fdf_parse_map(char *line, int height, int width)
 	return (map);
 }
 
-t_map *fdf_read_map(char *name_map)
+t_map	*fdf_read_map(char *name_map)
 {
 	t_map	*map;
 	int		fd;
 	char	*line;
 	char	*result_line;
-	int		height;
-	int		width;
+	t_dims	dims;
 
-	height = 0;
-	width = 0;
+	dims.height = 0;
 	result_line = NULL;
-	fd = open(name_map, O_RDONLY);
-	if (fd < 0)
+	if ((fd = open(name_map, O_RDONLY)) < 0)
 		fdf_error("Error: can't open file\n");
 	while (get_next_line(fd, &line) > 0)
 	{
 		result_line = ft_strmerge(result_line, ft_strjoin("\n", line));
-		if (height == 0)
-			width = ft_countwords(line, ' ');
-		if (width != ft_countwords(line, ' '))
+		if (dims.height == 0)
+			dims.width = ft_countwords(line, ' ');
+		if (dims.width != ft_countwords(line, ' '))
 			fdf_error("Error: width\n");
 		ft_strdel(&line);
-		height += 1;
+		dims.height += 1;
 	}
 	ft_strdel(&line);
-	map = fdf_parse_map(result_line, height, width);
+	map = fdf_parse_map(result_line, dims);
 	ft_strdel(&result_line);
 	return (map);
 }

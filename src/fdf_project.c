@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_project.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: air_must <air_must@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vcaterpi <vcaterpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/09 16:40:03 by vcaterpi          #+#    #+#             */
-/*   Updated: 2020/11/13 02:12:46 by air_must         ###   ########.fr       */
+/*   Created: 2020/11/13 15:32:58 by vcaterpi          #+#    #+#             */
+/*   Updated: 2020/11/13 15:48:03 by vcaterpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ t_point		fdf_projection_isometric(t_point point, t_cam *r)
 	return (temp_point);
 }
 
-// Проекция Косоугольная
+/*
+** Проекция Косоугольная
+*/
+
 t_point		fdf_projection_oblique(t_point point, t_cam *r)
 {
 	t_point	temp_point;

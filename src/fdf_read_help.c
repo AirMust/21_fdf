@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   fdf_read_help.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vcaterpi <vcaterpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/13 15:33:53 by vcaterpi          #+#    #+#             */
-/*   Updated: 2020/11/13 15:34:01 by vcaterpi         ###   ########.fr       */
+/*   Created: 2020/11/13 15:49:29 by vcaterpi          #+#    #+#             */
+/*   Updated: 2020/11/13 16:33:48 by vcaterpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/fdf.h"
 
-int	main(int argc, char **argv)
+t_map	*fill_point(t_map *map, int x, int y, int z)
 {
-	t_mlx *mlx;
-
-	if (argc < 2)
-		fdf_error("Error: not enough arguments");
-	mlx = fdf_create(argv[1]);
-	fdf_render(mlx);
-	mlx_key_hook(mlx->window, hook_keydown, mlx);
-	mlx_hook(mlx->window, 4, 0, hook_mousedown, mlx);
-	mlx_hook(mlx->window, 5, 0, hook_mouseup, mlx);
-	mlx_hook(mlx->window, 6, 0, hook_mousemove, mlx);
-	mlx_loop(mlx->mlx);
-	return (0);
+	map->points[y][x].x = x;
+	map->points[y][x].y = y;
+	map->points[y][x].z = z;
+	map->points[y][x].color = 0xFF0000;
+	if (map->points[y][x].z > map->depth_max)
+		map->depth_max = map->points[y][x].z;
+	if (map->points[y][x].z < map->depth_min)
+		map->depth_min = map->points[y][x].z;
+	return (map);
 }

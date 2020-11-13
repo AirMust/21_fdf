@@ -3,24 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_render.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: air_must <air_must@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vcaterpi <vcaterpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/09 16:40:03 by vcaterpi          #+#    #+#             */
-/*   Updated: 2020/11/13 14:45:09 by air_must         ###   ########.fr       */
+/*   Created: 2020/11/13 15:32:43 by vcaterpi          #+#    #+#             */
+/*   Updated: 2020/11/13 15:48:28 by vcaterpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/fdf.h"
 
-int fdf_check_point(t_point *point)
+int		fdf_check_point(t_point *point)
 {
-	if (point->x < 0 || point->x >= WIN_WIDTH || point->y < 0 || point->y >= WIN_HEIGHT)
+	if (point->x < 0 || point->x >= WIN_WIDTH ||
+		point->y < 0 || point->y >= WIN_HEIGHT)
 		return (1);
 	return (0);
 }
 
-int fdf_draw_point(t_mlx *mlx, t_line *l, t_point *p1,
-					   t_point *p2)
+int		fdf_draw_point(t_mlx *mlx, t_line *l, t_point *p1,
+							t_point *p2)
 {
 	if (fdf_check_point(p1) || fdf_check_point(p2))
 		return (1);
@@ -39,7 +40,7 @@ int fdf_draw_point(t_mlx *mlx, t_line *l, t_point *p1,
 	return (0);
 }
 
-void fdf_draw_line(t_mlx *mlx, t_point p1, t_point p2)
+void	fdf_draw_line(t_mlx *mlx, t_point p1, t_point p2)
 {
 	t_line line;
 
@@ -56,7 +57,7 @@ void fdf_draw_line(t_mlx *mlx, t_point p1, t_point p2)
 	line.err = (line.dx > line.dy ? line.dx : -line.dy) / 2;
 	while (((int)p1.x != (int)p2.x || (int)p1.y != (int)p2.y))
 		if (fdf_draw_point(mlx, &line, &p1, &p2))
-			break;
+			break ;
 }
 
 void	fdf_render(t_mlx *mlx)

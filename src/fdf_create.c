@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_create.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: air_must <air_must@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vcaterpi <vcaterpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/09 16:40:03 by vcaterpi          #+#    #+#             */
-/*   Updated: 2020/11/13 14:43:31 by air_must         ###   ########.fr       */
+/*   Created: 2020/11/13 15:33:23 by vcaterpi          #+#    #+#             */
+/*   Updated: 2020/11/13 15:34:21 by vcaterpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 t_mlx	*fdf_create(char *name_map)
 {
-
 	t_mlx	*mlx;
 
 	if ((mlx = ft_memalloc(sizeof(t_mlx))) == NULL)

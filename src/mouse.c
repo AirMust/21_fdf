@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: air_must <air_must@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vcaterpi <vcaterpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/05/11 22:39:22 by pbondoer          #+#    #+#             */
-/*   Updated: 2020/11/13 01:57:05 by air_must         ###   ########.fr       */
+/*   Created: 2020/11/13 15:35:43 by vcaterpi          #+#    #+#             */
+/*   Updated: 2020/11/13 15:37:15 by vcaterpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ int		hook_keydown(int key, t_mlx *mlx)
 	(void)mlx;
 	if (key == 53)
 		exit(EXIT_SUCCESS);
-	if (key == 48){
+	if (key == 48)
+	{
 		mlx->cam->f *= -1;
 		fdf_render(mlx);
 	}
 	return (0);
 }
-
 
 int		hook_mousedown(int button, int x, int y, t_mlx *mlx)
 {

@@ -6,7 +6,7 @@
 /*   By: vcaterpi <vcaterpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 15:32:43 by vcaterpi          #+#    #+#             */
-/*   Updated: 2020/11/13 15:48:28 by vcaterpi         ###   ########.fr       */
+/*   Updated: 2020/11/13 18:24:40 by vcaterpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	fdf_draw_line(t_mlx *mlx, t_point p1, t_point p2)
 	p2.x = (int)p2.x;
 	p1.y = (int)p1.y;
 	p2.y = (int)p2.y;
+	image_set_pixel(mlx->image, (int)p1.x, (int)p1.y, p1.color);
 	line.start = p1;
 	line.stop = p2;
 	line.dx = (int)ft_abs((int)p2.x - (int)p1.x);

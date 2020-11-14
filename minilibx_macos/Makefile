@@ -18,8 +18,6 @@ $(NAME): $(OBJECTS_MLX) Makefile
 	@ranlib $(NAME) 2> tmp.log
 	@echo "\nProject $(NAME) build successfully \033[32m[OK]\033[0m\n"
 
-# $(OBJECTS_MLX): $(OBJ1:.m=.o)
-# 	@echo "\033[32m.\033[0m\c"
 clean:
 	@rm -f $(NAME) $(OBJECTS_MLX)
 	@rm -f mlx_app

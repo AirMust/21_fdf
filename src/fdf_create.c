@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_create.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vcaterpi <vcaterpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antondob <antondob@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 15:33:23 by vcaterpi          #+#    #+#             */
-/*   Updated: 2020/11/13 15:34:21 by vcaterpi         ###   ########.fr       */
+/*   Updated: 2020/11/14 01:04:14 by antondob         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,13 @@
 t_mlx	*fdf_create(char *name_map)
 {
 	t_mlx	*mlx;
+	int		fd;
 
+	if ((fd = open(name_map, O_RDONLY)) < 0)
+		fdf_error("Error: can't open file\n");
 	if ((mlx = ft_memalloc(sizeof(t_mlx))) == NULL)
 		fdf_error("Error: can't init mlx\n");
+	mlx->map = fdf_read_map(fd);
 	mlx->mlx = mlx_init();
 	mlx->window = mlx_new_window(mlx->mlx, WIN_WIDTH,
 								WIN_HEIGHT, name_map);
@@ -30,6 +34,5 @@ t_mlx	*fdf_create(char *name_map)
 	mlx->cam->scale = 50;
 	mlx->cam->offsetx = WIN_WIDTH / 2;
 	mlx->cam->offsety = WIN_HEIGHT / 2;
-	mlx->map = fdf_read_map(name_map);
 	return (mlx);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vcaterpi <vcaterpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antondob <antondob@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 15:33:53 by vcaterpi          #+#    #+#             */
-/*   Updated: 2020/11/13 15:34:01 by vcaterpi         ###   ########.fr       */
+/*   Updated: 2020/11/14 01:02:12 by antondob         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	main(int argc, char **argv)
 {
 	t_mlx *mlx;
 
-	if (argc < 2)
-		fdf_error("Error: not enough arguments");
+	if (argc != 2)
+		fdf_error("Usage: ./fdf [path to map]\n");
 	mlx = fdf_create(argv[1]);
 	fdf_render(mlx);
 	mlx_key_hook(mlx->window, hook_keydown, mlx);

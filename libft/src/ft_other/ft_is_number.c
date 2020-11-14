@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_is_number.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vcaterpi <vcaterpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antondob <antondob@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 00:00:51 by antondob          #+#    #+#             */
-/*   Updated: 2020/09/21 19:18:50 by vcaterpi         ###   ########.fr       */
+/*   Updated: 2020/11/14 02:43:15 by antondob         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,13 @@ int		ft_is_number(char *str)
 		return (0);
 	if (!(ft_strchr("+-", *str)) && !(ft_isdigit(*str)))
 		return (0);
-	while (*(++str))
+	if (ft_strchr("+-", *str) && !(*(++str)))
+		return (0);
+	while (*str)
+	{
 		if (!ft_isdigit(*str))
 			return (0);
+		++str;
+	}
 	return (1);
 }

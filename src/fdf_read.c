@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_read.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vcaterpi <vcaterpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antondob <antondob@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 15:32:51 by vcaterpi          #+#    #+#             */
-/*   Updated: 2020/11/13 16:31:30 by vcaterpi         ###   ########.fr       */
+/*   Updated: 2020/11/14 02:50:49 by antondob         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,10 @@ t_map	*fdf_parse_map(char *line, t_dims dims)
 		j = -1;
 		values_in_line = ft_strsplit(lines[i], ' ');
 		while (++j < dims.width)
+		{
+			validate_number(values_in_line[j]);
 			fill_point(map, j, i, ft_atoi(values_in_line[j]));
+		}
 		ft_strsplitfree(&values_in_line);
 	}
 	ft_strsplitfree(&lines);
@@ -86,28 +89,29 @@ t_map	*fdf_parse_map(char *line, t_dims dims)
 	return (map);
 }
 
-t_map	*fdf_read_map(char *name_map)
+t_map	*fdf_read_map(int fd)
 {
 	t_map	*map;
-	int		fd;
 	char	*line;
 	char	*result_line;
 	t_dims	dims;
 
 	dims.height = 0;
 	result_line = NULL;
-	if ((fd = open(name_map, O_RDONLY)) < 0)
-		fdf_error("Error: can't open file\n");
+	line = NULL;
 	while (get_next_line(fd, &line) > 0)
 	{
+		validate_line(line);
 		result_line = ft_strmerge(result_line, ft_strjoin("\n", line));
 		if (dims.height == 0)
 			dims.width = ft_countwords(line, ' ');
 		if (dims.width != ft_countwords(line, ' '))
-			fdf_error("Error: width\n");
+			fdf_error("Error: map is not rectangular\n");
 		ft_strdel(&line);
 		dims.height += 1;
 	}
+	if (!dims.width)
+		fdf_error("Error: map is empty\n");
 	ft_strdel(&line);
 	map = fdf_parse_map(result_line, dims);
 	ft_strdel(&result_line);

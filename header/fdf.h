@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vcaterpi <vcaterpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antondob <antondob@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 05:17:48 by hbhuiyan          #+#    #+#             */
-/*   Updated: 2020/11/13 16:34:53 by vcaterpi         ###   ########.fr       */
+/*   Updated: 2020/11/14 02:35:07 by antondob         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,12 @@ typedef struct		s_dims
 
 void				fdf_error(char *error);
 t_mlx				*fdf_create(char *name_map);
-t_map				*fdf_read_map(char *name_map);
+t_map				*fdf_read_map(int fd);
 void				fdf_render(t_mlx *mlx);
 t_point				fdf_project(t_point point, t_mlx *mlx);
 t_map				*fill_point(t_map *map, int x, int y, int z);
+void				validate_line(char *line);
+void				validate_number(char *number);
 
 void				image_set_pixel(t_image *image, int x, int y, int color);
 void				clear_image(t_image *image);

@@ -6,7 +6,7 @@
 /*   By: antondob <antondob@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 15:33:23 by vcaterpi          #+#    #+#             */
-/*   Updated: 2020/11/14 01:04:14 by antondob         ###   ########.fr       */
+/*   Updated: 2020/11/14 17:45:49 by antondob         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ t_mlx	*fdf_create(char *name_map)
 	mlx->cam = ft_memalloc(sizeof(t_cam));
 	mlx->mouse = ft_memalloc(sizeof(t_mouse));
 	mlx->image = new_image(mlx);
-	mlx->cam->x = 1.0;
-	mlx->cam->y = 1.0;
+	mlx->cam->x = 0.0;
+	mlx->cam->y = 0.0;
 	mlx->cam->f = -1;
 	mlx->cam->scale = 50;
 	mlx->cam->offsetx = WIN_WIDTH / 2;

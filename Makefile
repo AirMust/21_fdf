@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vcaterpi <vcaterpi@student.42.fr>          +#+  +:+       +#+         #
+#    By: antondob <antondob@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/25 14:04:51 by slynell           #+#    #+#              #
-#    Updated: 2020/11/13 16:32:26 by vcaterpi         ###   ########.fr        #
+#    Updated: 2020/11/14 22:09:34 by antondob         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ SRCS += fdf_create.c
 SRCS += fdf_render.c
 SRCS += fdf_project.c
 SRCS += fdf_img_utils.c
-SRCS += mouse.c
+SRCS += fdf_mouse.c
 
 SOURCES = $(addprefix $(SDIR)/,$(SRCS))
 OBJECTS = $(addprefix $(ODIR)/,$(SRCS:.c=.o))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_checkoverflow.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vcaterpi <vcaterpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: antondob <antondob@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 18:44:46 by vcaterpi          #+#    #+#             */
-/*   Updated: 2020/09/21 19:18:52 by vcaterpi         ###   ########.fr       */
+/*   Updated: 2020/11/14 17:07:14 by antondob         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ static void		trim_nul_str(char *str, char *before)
 		i++;
 	}
 	before[++j] = 0;
+	if (before[1] == '0')
+	{
+		before[0] = '0';
+		before[1] = 0;
+	} 
 }
 
 int				ft_checkoverflow(int nbr, char *str)

@@ -6,7 +6,7 @@
 /*   By: antondob <antondob@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 15:32:51 by vcaterpi          #+#    #+#             */
-/*   Updated: 2020/11/14 02:50:49 by antondob         ###   ########.fr       */
+/*   Updated: 2020/11/14 15:27:36 by antondob         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ t_map	*fdf_read_map(int fd)
 	t_dims	dims;
 
 	dims.height = 0;
+	dims.width = 0;
 	result_line = NULL;
 	line = NULL;
 	while (get_next_line(fd, &line) > 0)

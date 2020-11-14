@@ -1,0 +1,6 @@
+RESULT=$(norminette src/* libft/* header/* | grep Error);
+if [[ "$RESULT" -eq "" ]]; then
+	echo "norma is OK"
+else
+	echo "norma ERROR"
+fi

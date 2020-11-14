@@ -6,7 +6,7 @@
 /*   By: antondob <antondob@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 18:44:46 by vcaterpi          #+#    #+#             */
-/*   Updated: 2020/11/14 17:29:08 by antondob         ###   ########.fr       */
+/*   Updated: 2020/11/14 21:49:11 by antondob         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void		trim_nul_str(char *str, char *before)
 	{
 		before[0] = '0';
 		before[1] = 0;
-	} 
+	}
 }
 
 int				ft_checkoverflow(int nbr, char *str)

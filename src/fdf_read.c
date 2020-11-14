@@ -6,7 +6,7 @@
 /*   By: antondob <antondob@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 15:32:51 by vcaterpi          #+#    #+#             */
-/*   Updated: 2020/11/14 15:27:36 by antondob         ###   ########.fr       */
+/*   Updated: 2020/11/14 21:47:22 by antondob         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	fdf_set_color(t_map *map)
 	}
 }
 
-t_map	*fdf_parse_map(char *line, t_dims dims)
+t_map	*fdf_parse_map(char **line, t_dims dims)
 {
 	t_map	*map;
 	char	**lines;
@@ -71,7 +71,7 @@ t_map	*fdf_parse_map(char *line, t_dims dims)
 	int		j;
 
 	map = fdf_create_map(dims);
-	lines = ft_strsplit(line, '\n');
+	lines = ft_strsplit(*line, '\n');
 	i = -1;
 	while (++i < dims.height)
 	{
@@ -86,6 +86,7 @@ t_map	*fdf_parse_map(char *line, t_dims dims)
 	}
 	ft_strsplitfree(&lines);
 	fdf_set_color(map);
+	ft_strdel(line);
 	return (map);
 }
 
@@ -114,7 +115,6 @@ t_map	*fdf_read_map(int fd)
 	if (!dims.width)
 		fdf_error("Error: map is empty\n");
 	ft_strdel(&line);
-	map = fdf_parse_map(result_line, dims);
-	ft_strdel(&result_line);
+	map = fdf_parse_map(&result_line, dims);
 	return (map);
 }
